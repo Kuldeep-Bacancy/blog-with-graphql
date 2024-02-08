@@ -1,17 +1,27 @@
 class Mutations::CreateUser < GraphQL::Schema::Mutation
 
-  argument :user, Types::UserInputType, required: true
+  argument :first_name, String, required: true
+  argument :last_name, String, required: true
 
-  def resolve(user:)
-    User.create(
-      first_name: user[:first_name],
-      last_name: user[:last_name],
+  field :user, Types::UserType, null: true
+  field :errors, [String], null: false
+
+  def resolve(first_name:, last_name:)
+    user = User.new(
+      first_name: first_name,
+      last_name: last_name,
       street: Faker::Address.street_name,
       number: Faker::Address.building_number,
       city: Faker::Address.city,
       postcode: Faker::Address.postcode,
       country: Faker::Address.country,
     )
+
+    if user.save
+      { user: user, errors: [], msg: 'User created Successfully!' }
+    else
+      { user: nil, errors: user.errors.full_messages }
+    end
   end
 
 end

@@ -1,11 +1,19 @@
 class Mutations::DeleteUser < GraphQL::Schema::Mutation
 
-  argument :user, Types::UserInputType, required: true
+  argument :id, Integer, required: true
 
-  def resolve(user:)
-    ex_user = User.where(id: user[:id]).first
-    ex_user&.destroy
-    ex_user
+  field :user, Types::UserType, null: true
+  field :errors, [String], null: false
+
+  def resolve(id:)
+    user = User.find_by(id: id)
+    return { user: nil, errors: ['User not found!']} if user.nil?
+
+    if user.destroy
+      { user: user, errors: [] }
+    else
+      { user: nil, errors: user.errors.full_messages }
+    end
   end
 
 end

@@ -18,6 +18,6 @@
     country: Faker::Address.country,
   )
 
-  user.posts.create(body: Faker::Marketing.buzzwords)
-  user.comments.create(body: Faker::Marketing.buzzwords)
+  post = user.posts.create(body: Faker::Marketing.buzzwords)
+  user.comments.create(body: Faker::Marketing.buzzwords, post: post)
 end

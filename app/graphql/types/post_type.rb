@@ -4,6 +4,7 @@ module Types
   class PostType < Types::BaseObject
     field :id, ID, null: false
     field :user_id, Integer, null: false
+    field :comments, [Types::CommentType]
     field :body, String
     field :errors, [String], null: true
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false

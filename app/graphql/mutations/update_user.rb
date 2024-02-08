@@ -1,11 +1,26 @@
 class Mutations::UpdateUser < GraphQL::Schema::Mutation
 
-  argument :user, Types::UserInputType, required: true
+  argument :id, Integer, required: true
+  argument :first_name, String, required: false
+  argument :last_name, String, required: false
+  argument :street, String, required: false
+  argument :number, Integer, required: false
+  argument :city, String, required: false
+  argument :postcode, Integer, required: false
+  argument :country, String, required: false
 
-  def resolve(user:)
-    ex_user = User.where(id: user[:id]).first
-    ex_user&.update user.to_h
-    ex_user
+  field :user, Types::UserType, null: true
+  field :errors, [String], null: false
+
+  def resolve(id:, **args)
+    user = User.find_by(id: id)
+    return { user: nil, errors: ['User not found!']} if user.nil?
+
+    if user.update(args.to_h)
+      { user: user, errors: [] }
+    else
+      { user: nil, errors: user.errors.full_messages }
+    end
   end
 
 end
