@@ -1,11 +1,19 @@
 class Mutations::UpdatePost < GraphQL::Schema::Mutation
 
-  argument :post, Types::PostInputType, required: true
+  argument :id, String, required: true
+  argument :body, String, required: true
 
-  def resolve(post:)
-    ex_post = Post.where(id: post[:id]).first
-    ex_post&.update post.to_h
-    ex_post
+  field :post, Types::PostType, null: true
+  field :errors, [String], null: false
+
+  def resolve(id:, body:)
+    post = Post.find_by(id: id)
+    return { post: nil, errors: ['Post not found!']} if post.nil?
+  
+    if post.update(body: body)
+      { post: post, errors: [], msg: 'Post updated Successfully!' }
+    else
+      { post: nil, errors: post.errors.full_messages }
+    end
   end
-
 end

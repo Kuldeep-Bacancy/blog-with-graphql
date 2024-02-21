@@ -22,14 +22,6 @@ module Types
       object.errors.full_messages
     end
   end
-
-  class UserInputType < GraphQL::Schema::InputObject
-    graphql_name 'UserInputType'
-    
-    argument :id, ID, required: false
-    argument :first_name, String, required: true
-    argument :last_name, String, required: true
-  end
 end
 
 

@@ -1,11 +1,18 @@
 class Mutations::DeletePost < GraphQL::Schema::Mutation
 
-  argument :post, Types::PostInputType, required: true
+  argument :id, String, required: true
 
-  def resolve(post:)
-    ex_post = Post.where(id: post[:id]).first
-    ex_post&.destroy
-    ex_post
+  field :post, Types::PostType, null: true
+  field :errors, [String], null: false
+
+  def resolve(id:)
+    post = Post.find_by(id: id)
+    return { post: nil, errors: ['Post not found!']} if post.nil?
+  
+    if post.destroy
+      { post: post, errors: [], msg: 'Post deleted Successfully!' }
+    else
+      { post: nil, errors: post.errors.full_messages }
+    end
   end
-
 end

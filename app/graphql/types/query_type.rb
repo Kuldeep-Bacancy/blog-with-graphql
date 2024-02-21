@@ -22,8 +22,8 @@ module Types
       User.where(id: id).first
     end
 
-    def commnents
-      Commnet.all
+    def comments
+      Comment.all
     end
 
     def posts
