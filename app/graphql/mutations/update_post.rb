@@ -1,5 +1,5 @@
 class Mutations::UpdatePost < GraphQL::Schema::Mutation
-  argument :id, String, required: true
+  argument :id, Integer, required: true
   argument :body, String, required: true
 
   field :post, Types::PostType, null: true

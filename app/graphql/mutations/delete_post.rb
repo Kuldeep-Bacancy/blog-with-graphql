@@ -1,5 +1,5 @@
 class Mutations::DeletePost < GraphQL::Schema::Mutation
-  argument :id, String, required: true
+  argument :id, Integer, required: true
 
   field :post, Types::PostType, null: true
   field :errors, [String], null: false

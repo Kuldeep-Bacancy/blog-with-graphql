@@ -1,9 +1,9 @@
 class Mutations::CreatePost < GraphQL::Schema::Mutation
-  argument :user_id, String, required: true
+  argument :user_id, Integer, required: true
   argument :body, String, required: true
 
   field :post, Types::PostType, null: true
-  field :errors, [String], null: false
+  field :errors, [String], null: true
 
   def resolve(user_id:, body:)
     post = Post.new(
