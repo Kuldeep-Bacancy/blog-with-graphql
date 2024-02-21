@@ -1,4 +1,4 @@
-##### Prerequisites
+### Prerequisites
 
 The setups steps expect following tools installed on the system.
 
