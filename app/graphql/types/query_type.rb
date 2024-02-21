@@ -7,27 +7,27 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
-    field :users, [Types::UserType], null: false, description: "Display all users"
-    field :user, Types::UserType, null: false do
+    field :users, [Types::UserType], null: false, description: 'Display all users'
+    field :user, Types::UserType do
       argument :id, Integer, required: true
     end
     field :comments, [Types::CommentType], null: false
     field :posts, [Types::PostType], null: false
 
     def users
-      User.all
+      User.includes(:posts, :comments).all
     end
 
     def user(id:)
-      User.where(id: id).first
+      User.where(id:).first
     end
 
     def comments
-      Comment.all
+      Comment.includes(:post, :user).all
     end
 
     def posts
-      Post.all
+      Post.includes(:user, :comments).all
     end
   end
 end
