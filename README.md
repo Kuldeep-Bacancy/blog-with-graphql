@@ -7,10 +7,10 @@ The setups steps expect following tools installed on the system.
 - Rails [7.0.7]
 - Postgres
 
-### 1. Check out the repository
+### 1. Clone the repository
 
 ```bash
-https://github.com/Kuldeep-Bacancy/blog-with-graphql.git
+git clone https://github.com/Kuldeep-Bacancy/blog-with-graphql.git
 ```
 
 ### 2. Install Gems
