@@ -7,13 +7,13 @@ The setups steps expect following tools installed on the system.
 - Rails [7.0.7]
 - Postgres
 
-##### 1. Check out the repository
+### 1. Check out the repository
 
 ```bash
 https://github.com/Kuldeep-Bacancy/blog-with-graphql.git
 ```
 
-##### 2. Install Gems
+### 2. Install Gems
 
 Install Gem dependencies using bundle install
 
@@ -21,7 +21,7 @@ Install Gem dependencies using bundle install
 bundle install
 ```
 
-##### 3. Create and setup the database
+### 3. Create and setup the database
 
 Run the following commands to create and setup the database.
 
@@ -31,7 +31,7 @@ bundle exec rails db:migrate
 bundle exec rails db:seed
 ```
 
-##### 4. Start the Rails server
+### 4. Start the Rails server
 
 You can start the rails server using the command given below.
 
@@ -39,7 +39,7 @@ You can start the rails server using the command given below.
 bundle exec rails s
 ```
 
-##### 5. To execute mutations and queries you can do that playground
+### 5. To execute mutations and queries you can do that playground
 
 ```ruby
   http://localhost:3000/graphiql
